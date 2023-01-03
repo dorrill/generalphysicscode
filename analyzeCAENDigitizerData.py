@@ -119,12 +119,6 @@ def histogramEnergiesDownwardPulses(dataFile): #Will use max voltage of each eve
     print("Bad minV Values (<100): ", badMinV)
     #plt.hist(minVoltages,80,(2500,10000))   #histogram the maximum voltages with some # bins
     (binVals, bins, patches1) = plt.hist(minVoltages,100,(0,4000),color='red')
-    #binVals, bins = np.histogram(minVoltages,80,(0,4000),color='red')
-    #print("binVals: \n",binVals, "\nBins: \n",bins,"/n"
-    #fitNa22Edges(binVals,bins)
-    #fitCs137Edges(binVals,bins)
-    #fitCo60Edges(binVals,bins)
-    #dataTypeString = fileNameStr[3].split("_")
     dataTypeString = "SiPM LED"
     plt.title("%s Events, ADC Counts"%(dataTypeString))
     plt.xlabel("ADC Counts (downward pulses, noise at 9800)")

@@ -5,7 +5,7 @@ pd.__version__
 #Url of data frame: example, housing dataset
 url = 'https://github.com/mattharrison/datasets/raw/master/data/ames-housing-dataset.zip'
 url = 'data/ames-housing-dataset.zip'
-df = pd.read_csv(url, engine='pyarrow', dtype_backend='pyarrow')
+rawData = pd.read_csv(url, engine='pyarrow', dtype_backend='pyarrow')
 
 # Data cleaning functions
 def shrink_ints(df):
@@ -29,6 +29,14 @@ def clean_data(df):
      .assign(**df.select_dtypes('string').replace('', 'Missing').astype('category'),
              **{'Garage Yr Blt': df['Garage Yr Blt'].clip(upper=df['Year Built'].max())})
      .pipe(shrink_ints)
-    )    
-
-clean_DF = clean_data(df).dtypes
+    )
+    
+print("Memory usage before cleaning:")
+print((rawData.memory_usage(deep=True)
+ .sum()
+ ))
+clean_DF = clean_data(rawData)
+print("Memory usage after cleaning:")
+print((clean_DF.memory_usage(deep=True)
+ .sum()
+ ))
